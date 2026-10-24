@@ -1,0 +1,11 @@
+.card {
+  --card-size: 290px;
+  width: var(--card-size);
+  height: var(--card-size);
+}
+
+@media (min-width: 640px) {
+  .card {
+    --card-size: 365px;
+  }
+}

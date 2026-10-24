@@ -1,0 +1,229 @@
+.section {
+  --vertical-inset: clamp(12px, 2.5svh, 24px);
+  padding: var(--vertical-inset) 28px;
+  background: #fff;
+}
+
+.landscape {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--vertical-inset) * 2);
+  max-width: 1600px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #6b6a91 url("/images/newsletter-bengaluru.jpg") center 62% / cover
+    no-repeat;
+  color: #fffdf9;
+}
+
+.shade {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 48% 43% at 50% 38%, #2c23404a, transparent),
+    linear-gradient(
+      180deg,
+      rgba(29, 24, 53, 0.18),
+      rgba(36, 31, 59, 0.23) 30%,
+      rgba(30, 26, 46, 0.27) 58%,
+      rgba(26, 25, 35, 0.25) 72%,
+      rgba(24, 23, 32, 0.83) 100%
+    );
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(16px, 3svh, 28px) 42px 0;
+  flex-shrink: 0;
+  color: #fffdf9e6;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.topline > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: clamp(20px, 4svh, 48px) 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin-bottom: clamp(10px, 2svh, 19px);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.7px;
+  text-shadow: 0 1px 12px #302a4e50;
+}
+
+.title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(64px, min(9vw, 15svh), 132px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.08;
+  letter-spacing: -0.065em;
+  text-shadow: 0 3px 30px #2a244119;
+}
+
+.title > span {
+  color: #e0d2f7;
+}
+
+.tagline {
+  margin-top: clamp(10px, 2svh, 18px);
+  font-size: 16px;
+  letter-spacing: 0.05px;
+  text-shadow: 0 1px 12px #302a4e60;
+}
+
+.description {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.6;
+  text-shadow: 0 1px 14px #211c3b80;
+}
+
+.missionLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: clamp(14px, 2.5svh, 25px);
+  padding: 12px 22px;
+  border: 1px solid #ffffff75;
+  border-radius: 999px;
+  background: #f9f3ff16;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.missionLink:hover {
+  background: #f9f3ff40;
+}
+
+.landscape a:focus-visible,
+.landscape button:focus-visible {
+  outline: 2px solid #fffdf9;
+  outline-offset: 5px;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-inline: 20px;
+  }
+  .landscape {
+    border-radius: 30px;
+  }
+  .topline {
+    padding-inline: 28px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .title {
+    font-size: clamp(64px, min(11vw, 14svh), 100px);
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding-inline: 12px;
+  }
+  .landscape {
+    border-radius: 24px;
+    background-position: 72% center;
+  }
+  .shade {
+    background: linear-gradient(
+      180deg,
+      #24203a40,
+      #24203a85 45%,
+      #24203a60 63%,
+      #181720e8 100%
+    );
+  }
+  .topline {
+    justify-content: center;
+    padding-inline: 18px;
+    font-size: 7px;
+    letter-spacing: 1.3px;
+  }
+  .topline > span:last-child {
+    display: none;
+  }
+  .content {
+    padding-inline: 22px;
+  }
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+  .title {
+    font-size: clamp(48px, min(14vw, 12svh), 82px);
+  }
+  .tagline {
+    font-size: 13px;
+  }
+  .description {
+    max-width: 290px;
+    font-size: 14px;
+  }
+  .desktopBreak {
+    display: none;
+  }
+  .missionLink {
+    font-size: 11px;
+    padding: 11px 18px;
+  }
+}
+
+/* Keep the full panel visible on shorter laptop and landscape viewports. */
+@media (max-height: 650px) {
+  .topline {
+    padding-top: 14px;
+  }
+  .content {
+    padding-block: 16px;
+  }
+  .eyebrow {
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: clamp(42px, min(9vw, 12svh), 78px);
+  }
+  .tagline {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  .description {
+    font-size: 13px;
+  }
+  .missionLink {
+    margin-top: 12px;
+    padding-block: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landscape a,
+  .landscape button {
+    transition: none;
+  }
+}

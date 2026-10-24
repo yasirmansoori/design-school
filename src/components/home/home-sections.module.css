@@ -1,0 +1,184 @@
+.mission {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 620px;
+  padding: 96px 0 80px;
+  border-block: 1px solid #eee9f3;
+  background:
+    radial-gradient(ellipse at 14% 82%, #e9efdf85, transparent 48%),
+    radial-gradient(ellipse at 88% 14%, #e9def58c, transparent 50%),
+    linear-gradient(135deg, #faf8fd, #fdfbf7);
+}
+
+.missionGrid {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#b2a2c41a 1px, transparent 1px),
+    linear-gradient(90deg, #b2a2c41a 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(90deg, #000, #0003 40%, #0003 60%, #000);
+}
+
+.missionOrbit {
+  position: absolute;
+  z-index: -1;
+  bottom: -100px;
+  left: -105px;
+  width: 340px;
+  height: 250px;
+  border: 1px solid #c5b5d64d;
+  border-radius: 50%;
+  transform: rotate(-32deg);
+  pointer-events: none;
+}
+
+.missionOrbit::before {
+  content: "";
+  position: absolute;
+  inset: 22px -18px;
+  border: 1px dashed #b6bfa752;
+  border-radius: 50%;
+  transform: rotate(28deg);
+}
+
+.missionOrbit::after {
+  content: "✳";
+  position: absolute;
+  top: 5px;
+  right: 53px;
+  color: #b5a3ca;
+  font-size: 32px;
+}
+
+.missionCopy {
+  justify-content: center;
+  max-width: 780px;
+  margin-inline: auto;
+  color: #38313f;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: -0.55px;
+}
+
+/* Keep the original scroll reveal crisp against the pastel background. */
+.missionCopy span {
+  text-shadow: none !important;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-bottom: 20px;
+  color: #796589;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.8;
+}
+
+.missionSprig {
+  position: absolute;
+  top: 42px;
+  right: max(24px, calc((100vw - 1240px) / 2));
+  width: clamp(70px, 11vw, 145px);
+  height: auto;
+  opacity: 0.65;
+  pointer-events: none;
+  transform: rotate(18deg);
+}
+
+.coffeeNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 42px auto 0;
+  padding: 15px 25px 15px 18px;
+  border-top: 1px solid #e9e3ed;
+  border-bottom: 1px solid #e9e3ed;
+  color: #655b6b;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.coffeeNote span {
+  color: #8b7c90;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.coffeeDrawing {
+  flex: 0 0 43px;
+  width: 43px;
+  height: 43px;
+  color: #94805c;
+}
+
+.galleryNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+  color: #82758c;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.galleryNote span {
+  padding: 3px 6px;
+  border: 1px solid #d9cde5;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: 1px;
+  transform: rotate(-7deg);
+}
+
+@media (max-width: 640px) {
+  .mission {
+    min-height: auto;
+    padding: 80px 0 64px;
+  }
+  .missionCopy {
+    font-size: 22px;
+    line-height: 1.6;
+    letter-spacing: -0.3px;
+  }
+  .missionOrbit {
+    bottom: -130px;
+    left: -180px;
+  }
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+  .missionSprig {
+    top: 14px;
+    right: 12px;
+    width: 64px;
+    opacity: 0.45;
+  }
+  .galleryNote {
+    gap: 9px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 94.1176%;
+    --foreground: 0 0% 20%;
+    --border: 0 0% 81.5686%;
+    --font-sans: "Lato", sans-serif;
+    --radius: 0.675rem;
+  }
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+/* Subtle Grid Background Pattern */
+.bg-grid-subtle {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.09) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position:
+    0 0,
+    0 0;
+}
+
+/* Add a subtle dot pattern overlay for extra depth */
+.bg-grid-subtle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+    circle at 20px 20px,
+    rgba(0, 0, 0, 0.02) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  pointer-events: none;
+}

@@ -1,0 +1,159 @@
+.footer {
+  flex-shrink: 0;
+  margin: 0 42px;
+  text-shadow: 0 1px 10px #211c3b40;
+}
+
+.footerMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(12px, 2.5svh, 24px) 0;
+  border-bottom: 1px solid #ffffff35;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.7px;
+  white-space: nowrap;
+}
+
+.brandPeriod {
+  color: #ddc8fc;
+}
+
+.brandMark {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  gap: 3px;
+  transform: rotate(-8deg);
+}
+
+.brandMark > span {
+  width: 10px;
+  height: 10px;
+  background: #fffdf9;
+}
+
+.brandMark > span:nth-child(2) {
+  border-radius: 50%;
+  background: #dac7f6;
+}
+
+.brandMark > span:nth-child(3) {
+  border-radius: 0 0 0 8px;
+  background: #dac7f6;
+}
+
+.brandMark > span:nth-child(4) {
+  border-radius: 50% 50% 0 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  font-size: 12px;
+}
+
+.nav a,
+.footerBottom a {
+  transition: color 0.2s;
+}
+
+.nav a:hover,
+.footerBottom a:hover {
+  color: #dfcafc;
+}
+
+.backToTop {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ffffff70;
+  border-radius: 50%;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.backToTop:hover {
+  background: #ffffff20;
+  transform: translateY(-3px);
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(12px, 2svh, 20px) 0;
+  color: #fffdf9c7;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.footerBottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 900px) {
+  .footer {
+    margin: 0 28px;
+  }
+  .nav {
+    gap: 18px;
+    font-size: 11px;
+  }
+  .footerBottom {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    margin: 0 22px;
+  }
+  .footerMain {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px 14px;
+  }
+  .brand {
+    font-size: 20px;
+  }
+  .backToTop {
+    grid-column: 2;
+    grid-row: 1;
+    width: 38px;
+    height: 38px;
+  }
+  .nav {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .footerBottom {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 9px;
+  }
+}
+
+/* Keep the full panel visible on shorter laptop and landscape viewports. */
+@media (max-height: 650px) {
+  .footerMain {
+    padding-block: 10px;
+  }
+  .footerBottom {
+    padding-block: 10px;
+  }
+}
