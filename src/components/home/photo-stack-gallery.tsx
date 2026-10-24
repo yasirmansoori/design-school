@@ -8,6 +8,8 @@ import type { GalleryPhoto } from "@/content/gallery";
 const FRAME_OFFSET = -30;
 const FRAMES_VISIBLE_LENGTH = 3;
 const BUFFER_SIZE = 8;
+const SWIPE_THRESHOLD = 40;
+const SWIPE_IDLE_MS = 200;
 
 export function PhotoStackGallery({
   photos,
@@ -17,6 +19,50 @@ export function PhotoStackGallery({
   // Use continuous index that can go infinite in both directions
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const instructionsId = React.useId();
+  const galleryRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery || photos.length < 2) return;
+
+    let distance = 0;
+    let direction = 0;
+    let lastWheelAt = 0;
+    let moved = false;
+
+    const handleWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+        return;
+      }
+
+      event.preventDefault();
+      const now = performance.now();
+      const nextDirection = Math.sign(event.deltaX);
+      if (now - lastWheelAt > SWIPE_IDLE_MS || nextDirection !== direction) {
+        distance = 0;
+        moved = false;
+      }
+      lastWheelAt = now;
+      direction = nextDirection;
+
+      // A trackpad swipe includes momentum events; advance only once per gesture.
+      if (moved) return;
+      const unit =
+        event.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? 16
+          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? gallery.clientWidth
+            : 1;
+      distance += event.deltaX * unit;
+      if (Math.abs(distance) < SWIPE_THRESHOLD) return;
+
+      setCurrentIndex((previous) => previous + direction);
+      moved = true;
+    };
+
+    gallery.addEventListener("wheel", handleWheel, { passive: false });
+    return () => gallery.removeEventListener("wheel", handleWheel);
+  }, [photos.length]);
 
   if (photos.length === 0) return null;
 
@@ -34,6 +80,7 @@ export function PhotoStackGallery({
 
   return (
     <div
+      ref={galleryRef}
       role="region"
       aria-roledescription="carousel"
       aria-label="Gallery showcase"
@@ -98,8 +145,9 @@ export function PhotoStackGallery({
         })}
       </div>
       <p id={instructionsId} className="sr-only">
-        Use the previous and next buttons, or focus the gallery and use the left
-        and right arrow keys.
+        Swipe horizontally with two fingers on a trackpad, use the previous and
+        next buttons, or focus the gallery and use the left and right arrow
+        keys.
       </p>
       <div className="absolute bottom-3 z-[200] flex items-center gap-5 rounded-full border border-gray-200 bg-white/95 p-2 sm:bottom-6">
         <button
