@@ -118,6 +118,46 @@ test("past events retain the initial card and navigate to the correct destinatio
   await destination;
 });
 
+test("past events support horizontal trackpad swipes and preserve vertical scrolling", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Trackpads send desktop wheel events.");
+  const carousel = page.getByRole("region", {
+    name: "Past events",
+    exact: true,
+  });
+  const active = carousel.locator('a[aria-current="true"]');
+  await carousel.scrollIntoViewIfNeeded();
+  await carousel.hover();
+
+  // Small deltas accumulate into a swipe, then momentum must not skip cards.
+  await page.mouse.wheel(15, 0);
+  await expect(active).toHaveAttribute("href", "https://luma.com/uvzsogs5");
+  await page.mouse.wheel(30, 0);
+  await expect(active).toHaveAttribute("href", "https://luma.com/5318tyh0");
+  for (const delta of [100, 70, 30, 10]) {
+    await page.mouse.wheel(delta, 0);
+  }
+  await expect(active).toHaveAttribute("href", "https://luma.com/5318tyh0");
+
+  // A separate swipe in the same direction advances again.
+  await page.waitForTimeout(250);
+  await page.mouse.wheel(60, 0);
+  await expect(active).toHaveAttribute("href", "https://luma.com/mh2znnu2");
+
+  // Reversing direction moves back immediately.
+  await page.mouse.wheel(-60, 0);
+  await expect(active).toHaveAttribute("href", "https://luma.com/5318tyh0");
+
+  const scrollY = await page.evaluate(() => window.scrollY);
+  await page.mouse.wheel(5, 250);
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeGreaterThan(scrollY);
+  await expect(active).toHaveAttribute("href", "https://luma.com/5318tyh0");
+});
+
 test("gallery wraps, supports keyboard navigation, and loads local photos", async ({
   page,
 }) => {
