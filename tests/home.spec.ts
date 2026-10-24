@@ -189,6 +189,60 @@ test("gallery wraps, supports keyboard navigation, and loads local photos", asyn
   await expect(status).toContainText("1 / 8");
 });
 
+test("gallery supports horizontal trackpad swipes, wraps, and preserves vertical scrolling", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Trackpads send desktop wheel events.");
+  const gallery = page.getByRole("region", { name: "Gallery showcase" });
+  const status = gallery.locator('[aria-live="polite"]');
+  await gallery.scrollIntoViewIfNeeded();
+  await gallery.hover();
+
+  await page.mouse.wheel(15, 0);
+  await expect(status).toContainText("1 / 8");
+  await page.mouse.wheel(30, 0);
+  await expect(status).toContainText("2 / 8");
+  for (const delta of [100, 70, 30, 10]) {
+    await page.mouse.wheel(delta, 0);
+  }
+  await expect(status).toContainText("2 / 8");
+
+  await page.waitForTimeout(250);
+  await page.mouse.wheel(60, 0);
+  await expect(status).toContainText("3 / 8");
+  await page.mouse.wheel(-60, 0);
+  await expect(status).toContainText("2 / 8");
+
+  for (const expectedImage of [1, 8]) {
+    await page.waitForTimeout(250);
+    await page.mouse.wheel(-60, 0);
+    await expect(status).toContainText(`${expectedImage} / 8`);
+  }
+  await page.mouse.wheel(60, 0);
+  await expect(status).toContainText("1 / 8");
+
+  const zoomAllowed = await gallery.evaluate((element) =>
+    element.dispatchEvent(
+      new WheelEvent("wheel", {
+        deltaX: 100,
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true,
+      }),
+    ),
+  );
+  expect(zoomAllowed).toBe(true);
+  await expect(status).toContainText("1 / 8");
+
+  const scrollY = await page.evaluate(() => window.scrollY);
+  await page.mouse.wheel(5, 250);
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeGreaterThan(scrollY);
+  await expect(status).toContainText("1 / 8");
+});
+
 test("newsletter validates email and displays its notice without sending data", async ({
   page,
 }) => {
