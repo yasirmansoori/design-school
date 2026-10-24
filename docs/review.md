@@ -18,10 +18,10 @@
 ## Verification
 
 - Node 24.22.1 and pnpm 11.18.0 used for validation.
-- Lint, strict TypeScript, formatting, and production build pass with error suppression removed.
-- Browser suite: **13 passed, 1 skipped**. The skip is the mobile-menu test in the desktop project.
+- Lint, strict TypeScript, formatting, and production build pass with error suppression removed, including a fresh installation without existing `node_modules`, `.next`, or generated type files.
+- Browser suite: **13 passed, 1 skipped** both locally and against the deployed production site. The skip is the mobile-menu test in the desktop project.
 - Desktop/mobile checks cover anchors, layout overflow, mobile Escape/focus and menu closing, event selection and destinations, gallery wrapping/keyboard controls/local image loading, newsletter validation with no POST, reduced motion, and removal of `/api/chat`.
-- Twelve screenshots captured at 1440 × 1000 and 390 × 844 match the original at a 0.12 pixel-comparison threshold. All six section heights match at both viewport sizes. Captures and the recoverable original snapshot are kept outside the repository in the local temporary QA directory.
+- Twelve screenshots captured at 1440 × 1000 and 390 × 844 match the original at a 0.12 pixel-comparison threshold. All six section heights match at both viewport sizes. Captures and the recoverable original snapshot are kept outside the repository in local temporary directories.
 - Dependency audit: **no known vulnerabilities found**. Compatible parser overrides are documented in `pnpm-workspace.yaml` and should be revisited during future framework/tooling upgrades.
 
 ## Intentional limitations

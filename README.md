@@ -71,6 +71,14 @@ The newsletter validates an email and displays a **signups open soon** notice. I
 
 Lato loads from Google Fonts; event-cover images load from their existing external hosts. Local gallery images and newsletter artwork are served by this application. See [asset notes](docs/assets.md).
 
+## Deployment
+
+Production: <https://design-school-seven.vercel.app>
+
+Vercel project: [design-school in yasirmansoori’s projects](https://vercel.com/yasirmansooris-projects/design-school).
+
+The project is connected to `yasirmansoori/design-school`. The production branch is `main`; other branches receive preview deployments. Vercel uses Node 24, `pnpm install --frozen-lockfile`, and `pnpm build` from the repository root. No environment variables are required. CI validates changes separately from Vercel's build.
+
 ## Team workflow
 
 1. Clone the private repository and create a short-lived branch: `git switch -c feat/your-change` (or `fix/your-change`).
